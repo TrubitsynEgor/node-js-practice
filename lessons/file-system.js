@@ -100,15 +100,15 @@ const removeFileAsync = async (path) => {
 //   console.log('file was deleted')
 // )
 
-const text = process.env.TEXT || '1 5 1 at 135'
-console.log(text)
+// const text = process.env.TEXT || '1 5 1 at 135'
+// console.log(text)
 
-writeFileAsync(path.resolve(__dirname, 'text.txt'), text)
-  .then(() => readFileAsync(path.resolve(__dirname, 'text.txt')))
-  .then((data) => data.split(' ').length)
-  .then((count) =>
-    writeFileAsync(
-      path.resolve(__dirname, 'count.txt'),
-      `Колличество слов: ${count}`
-    ).then(() => removeFileAsync(path.resolve(__dirname, 'text.txt')))
-  )
+// writeFileAsync(path.resolve(__dirname, 'text.txt'), text)
+//   .then(() => readFileAsync(path.resolve(__dirname, 'text.txt')))
+//   .then((data) => data.split(' ').length)
+//   .then((count) =>
+//     writeFileAsync(
+//       path.resolve(__dirname, 'count.txt'),
+//       `Колличество слов: ${count}`
+//     ).then(() => removeFileAsync(path.resolve(__dirname, 'text.txt')))
+//   )

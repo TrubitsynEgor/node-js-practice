@@ -1,27 +1,25 @@
-const http = require('http')
-
+const Application = require('./framework/Application')
 const PORT = process.env.PORT || 5000
+const userRouter = require('./src/user-router')
+const jsonParser = require('./framework/parseJson')
+const parseUrl = require('./framework/parseUrl')
+const mongoose = require('mongoose')
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'application/json',
-  })
+const app = new Application()
 
-  if (req.url === '/users') {
-    return res.end(
-      JSON.stringify([
-        {
-          id: 1,
-          name: 'Egor',
-          age: 33,
-        },
-      ])
+app.use(parseUrl('http://localhost:5000'))
+app.use(jsonParser)
+app.addRouter(userRouter)
+
+const start = async () => {
+  try {
+    await mongoose.connect(
+      'mongodb+srv://trubitsynwork74:Psqu7uAsl7LpAAFX@cluster0.zulkpqy.mongodb.net/?retryWrites=true&w=majority'
     )
+    app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`))
+  } catch (error) {
+    console.log(error.message)
   }
-  if (req.url === '/posts') {
-    return res.end('POSTS')
-  }
-  res.end(req.url)
-})
+}
 
-server.listen(PORT, () => console.log(`Server started on PORT ${PORT}`))
+start()
